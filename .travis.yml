@@ -7,6 +7,21 @@ jdk:
   - openjdk8
   - oraclejdk11
 
+env:
+  global:
+    - secure: "O93twIijH5DFWS2SLc44kz3Kg2Bygh+tKcn9slChVF0huHVz8gQA9AUE8LuYHVwpApjNTq6ynHsP4wtyBvFsjHDl/JBBHvXHRl67ustP4vCLbS+jDJ3wa3AK52Bkecnt8t35hzl6dTp3MtQBEs00JGFaFZysGh2snZ5ZkjFA31KROlek3FSCTljvFs6eKDWzkJyIrXN3iJla83Nqo2EnDAKITZ+ySJPWjsccVikfEYiT6LXk/Kc1Lb2inVR8q1r8B4KVDlSvJftGxv6QsqDiBSkVDQaos5hUjs76+eHkih+5bNcwiLc7pSiMU49zrnmjhaB54r+pvoqLZiJKKtWx7dlHep63Mx3cejfA1lc4KCQTulDXr15F2ngexb33MTsf4YxdZK4E2TGB/hXKyqVi9EJXLuSFClWggwTfTwiIC3Jls1aAlOkjq+w9mqgOipCaN1uEuIM18H1UBl0QyCQUjl9XerATudNTcN0TdSPCX5ywPDITmgv0EiayFtNl1rhQgznx8+xoMSK/yGyZ/9lB9OkoZFt7vCgyhiM0OruOCS3LY01XUF/i27BrvcPoKF8KheciIt+nR+d5EMDJ/w8T0q0G8w7RLCZZju/Hild5t0S5LlvFtjAeL0cx2pVr5K8PUV41JgiVcVeI8Pg4pZPwTOCUxC2n73z9eZSSr7GdePk="
+    - CC_TEST_REPORTER_ID=$CC_REPORTER
+
+# command to install dependencies
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
 # command to run tests
 script:
   - mvn test
+
+after_script:
+  - ./cc-test-reporter format-coverage -d -t jacoco ./target/jacoco-ut/jacoco.xml
+  - ./cc-test-reporter upload-coverage -d
