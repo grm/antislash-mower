@@ -1,0 +1,12 @@
+language: java
+dist: xenial
+jdk:
+  - openjdk11
+  - openjdk10
+  - openjdk9
+  - openjdk8
+  - oraclejdk11
+
+# command to run tests
+script:
+  - mvn test
