@@ -1,0 +1,15 @@
+---
+version: "2"
+plugins:
+  sonar-java:
+      enabled: true
+      config:
+          sonar.java.source: 8
+  pmd:
+      enabled: true
+  checkstyle:
+      enabled: true
+  eslint:
+      enabled: true
+#exclude_patterns:
+#  - src/main/java/test/
