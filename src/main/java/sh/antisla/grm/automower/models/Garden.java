@@ -1,5 +1,8 @@
 package sh.antisla.grm.automower.models;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +10,9 @@ import java.util.List;
  * Class used to represent a garden to mow. The Garden is considered as a grid with the starting point (0,0) which corresponds to the bottom right of the grid.
  */
 public class Garden {
+
+    private static final Logger logger = LoggerFactory.getLogger(Garden.class);
+
     /**
      * Length of the X-axis of the grid.
      */
@@ -31,6 +37,7 @@ public class Garden {
     public Garden(int xAxisLength, int yAxisLength) {
         this.xAxisLength = xAxisLength;
         this.yAxisLength = yAxisLength;
+        logger.info("Adding a garden : " + this.toString());
     }
 
     /**
@@ -70,6 +77,7 @@ public class Garden {
      * @param mower The mower to be added.
      */
     public void addMower(Mower mower) {
+        logger.info("Adding a mower to the garden : " + mower.toString());
         this.mowers.add(mower);
     }
 
@@ -79,5 +87,13 @@ public class Garden {
      */
     public List<Mower> getMowers() {
         return mowers;
+    }
+
+    @Override
+    public String toString() {
+        return "Garden{" +
+                "xAxisLength=" + xAxisLength +
+                ", yAxisLength=" + yAxisLength +
+                '}';
     }
 }

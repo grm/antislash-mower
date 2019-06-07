@@ -82,4 +82,13 @@ public class Mower {
         result = 31 * result + Arrays.hashCode(mowingPlanning);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Mower{" +
+                "position=" + position +
+                ", mowingPlanning=" + Arrays.toString(mowingPlanning) +
+                ", nextInstruction=" + nextInstruction +
+                '}';
+    }
 }
