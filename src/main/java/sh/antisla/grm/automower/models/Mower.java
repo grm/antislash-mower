@@ -24,13 +24,20 @@ public class Mower {
     private int nextInstruction = 0;
 
     /**
+     * The garden where the mower is located.
+     */
+    private Garden garden;
+
+    /**
      * Default constructor for a mower.
      * @param position The initial position of the mower in the garden.
      * @param mowingPlanning The mowing planning of the mower.
+     * @param garden The garden where the mower is located.
      */
-    public Mower(MowerPosition position, String mowingPlanning) {
+    public Mower(MowerPosition position, String mowingPlanning, Garden garden) {
         this.position = position;
         this.mowingPlanning = mowingPlanning.toCharArray();
+        this.garden = garden;
     }
 
     /**
@@ -64,35 +71,12 @@ public class Mower {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (other == null || getClass() != other.getClass()) {
-            return false;
-        }
-        Mower mower = (Mower) other;
-        return nextInstruction == mower.nextInstruction
-                && position.equals(mower.position)
-                && Arrays.equals(mowingPlanning, mower.mowingPlanning);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(position, nextInstruction);
-        result = 31 * result + Arrays.hashCode(mowingPlanning);
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "Mower{"
-                + "position="
-                + position
-                + ", mowingPlanning="
-                + Arrays.toString(mowingPlanning)
-                + ", nextInstruction="
-                + nextInstruction
+                + "position=" + position
+                + ", mowingPlanning=" + Arrays.toString(mowingPlanning)
+                + ", nextInstruction=" + nextInstruction
+                + ", garden=" + garden
                 + '}';
     }
 }

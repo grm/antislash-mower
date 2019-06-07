@@ -16,7 +16,7 @@ public class GardenTest {
     public void setUpCommonValues() {
         this.garden1 = new Garden(5, 5);
         MowerPosition position = new MowerPosition(0, 0, MowerCardinality.N);
-        this.mower1 = new Mower(position, "GAGAGAGAA");
+        this.mower1 = new Mower(position, "GAGAGAGAA", this.garden1);
     }
 
     @Test
