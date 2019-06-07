@@ -13,4 +13,8 @@ public class Main {
         logger.warn("Main.class");
         logger.error("Main.class");
     }
+
+    public String testFunction(String arg) {
+        return arg;
+    }
 }
