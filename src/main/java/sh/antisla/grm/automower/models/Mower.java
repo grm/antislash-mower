@@ -1,10 +1,10 @@
 package sh.antisla.grm.automower.models;
 
-import sh.antisla.grm.automower.models.exceptions.NoMoreInstructionsException;
-import sh.antisla.grm.automower.models.mower.MowerPosition;
-
 import java.util.Arrays;
 import java.util.Objects;
+
+import sh.antisla.grm.automower.models.exceptions.NoMoreInstructionsException;
+import sh.antisla.grm.automower.models.mower.MowerPosition;
 
 /**
  * Class to represent of mower in the garden.
@@ -53,7 +53,8 @@ public class Mower {
      * Returns the next instruction for the mower as a character.
      *
      * @return the character representing the next instuction for the mower.
-     * @throws NoMoreInstructionsException when there are no instrucitons left to execute for the mower.
+     * @throws NoMoreInstructionsException when there are no instrucitons
+     * left to execute for the mower.
      */
     public char getNextInstruction() throws NoMoreInstructionsException{
         if (nextInstruction == mowingPlanning.length) {
