@@ -54,7 +54,7 @@ public class Mower {
      *
      * @return the character representing the next instuction for the mower.
      * @throws NoMoreInstructionsException when there are no instrucitons
-     * left to execute for the mower.
+     *  left to execute for the mower.
      */
     public char getNextInstruction() throws NoMoreInstructionsException{
         if (nextInstruction == mowingPlanning.length) {
@@ -86,10 +86,13 @@ public class Mower {
 
     @Override
     public String toString() {
-        return "Mower{" +
-                "position=" + position +
-                ", mowingPlanning=" + Arrays.toString(mowingPlanning) +
-                ", nextInstruction=" + nextInstruction +
-                '}';
+        return "Mower{"
+                + "position="
+                + position
+                + ", mowingPlanning="
+                + Arrays.toString(mowingPlanning)
+                + ", nextInstruction="
+                + nextInstruction
+                + '}';
     }
 }

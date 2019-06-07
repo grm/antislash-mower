@@ -1,13 +1,16 @@
 package sh.antisla.grm.automower.models;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 /**
- * Class used to represent a garden to mow. The Garden is considered as a grid with the starting point (0,0) which corresponds to the bottom right of the grid.
+ * Class used to represent a garden to mow.
+ * The Garden is considered as a grid with the starting point (0,0)
+ * which corresponds to the bottom right of the grid.
  */
 public class Garden {
 
@@ -91,9 +94,11 @@ public class Garden {
 
     @Override
     public String toString() {
-        return "Garden{" +
-                "xAxisLength=" + xAxisLength +
-                ", yAxisLength=" + yAxisLength +
-                '}';
+        return "Garden{"
+                + "xAxisLength="
+                + xAxisLength
+                + ", yAxisLength="
+                + yAxisLength
+                + '}';
     }
 }
