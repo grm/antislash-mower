@@ -2,6 +2,9 @@ package sh.antisla.grm.automower.models;
 
 import sh.antisla.grm.automower.models.mower.MowerPosition;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 /**
  * Class to represent of mower in the garden.
  */
@@ -43,5 +46,26 @@ public class Mower {
      */
     public void setPosition(MowerPosition position) {
         this.position = position;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        Mower mower = (Mower) other;
+        return nextInstruction == mower.nextInstruction
+                && position.equals(mower.position)
+                && Arrays.equals(mowingPlanning, mower.mowingPlanning);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(position, nextInstruction);
+        result = 31 * result + Arrays.hashCode(mowingPlanning);
+        return result;
     }
 }
