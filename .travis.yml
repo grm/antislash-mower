@@ -23,5 +23,6 @@ script:
   - mvn test
 
 after_script:
-  - ./cc-test-reporter format-coverage -d -t jacoco ./target/jacoco-ut/jacoco.xml
-  - ./cc-test-reporter upload-coverage -d
+  - mv "./target/site/jacoco/jacoco.xml" "src/main/java/jacoco.xml"
+  - cd src/main/java/
+  - ../../../cc-test-reporter after-build -t jacoco --exit-code $TRAVIS_TEST_RESULT
