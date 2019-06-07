@@ -1,10 +1,11 @@
 package sh.antisla.grm.automower.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class used to represent a garden to mow. The Garden is considered as a grid with the starting point (0,0) which corresponds to the bottom right of the grid.
@@ -34,7 +35,7 @@ public class Garden {
      * @param xAxisLength The X-axis length of the garden's grid.
      * @param yAxisLength The Y-axis length of the garden's grid.
      */
-    public Garden(int xAxisLength, int yAxisLength) {
+    public Garden(int xaxisLength, int yaxisLength) {
         this.xAxisLength = xAxisLength;
         this.yAxisLength = yAxisLength;
         logger.info("Adding a garden : " + this.toString());
@@ -52,7 +53,7 @@ public class Garden {
      * Set the X-axis length of the garden.
      * @param xAxisLength The X-axis length
      */
-    public void setxAxisLength(int xAxisLength) {
+    public void setxAxisLength(int xaxisLength) {
         this.xAxisLength = xAxisLength;
     }
 
@@ -68,7 +69,7 @@ public class Garden {
      * Set the Y-axis length of the garden.
      * @param yAxisLength The Y-axis length
      */
-    public void setyAxisLength(int yAxisLength) {
+    public void setyAxisLength(int yaxisLength) {
         this.yAxisLength = yAxisLength;
     }
 
@@ -91,9 +92,11 @@ public class Garden {
 
     @Override
     public String toString() {
-        return "Garden{" +
-                "xAxisLength=" + xAxisLength +
-                ", yAxisLength=" + yAxisLength +
-                '}';
+        return "Garden{"
+                + "xAxisLength="
+                + xAxisLength
+                + ", yAxisLength="
+                + yAxisLength
+                + '}';
     }
 }
