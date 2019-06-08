@@ -43,6 +43,16 @@ public class GardenTest {
     }
 
     @Test
+    public void testAddMowerToSameLocation() {
+        assertEquals(0, garden1.getMowers().size());
+        garden1.addMower(this.mower1);
+        MowerPosition position = new MowerPosition(0, 0, MowerCardinality.N);
+        Mower mower2 = new Mower(position, "GAGAGAGAA", this.garden1);
+        garden1.addMower(mower2);
+        assertEquals(1, garden1.getMowers().size());
+    }
+
+    @Test
     public void mowItNow(){
         Garden garden = new Garden(5, 5);
         MowerPosition position1 = new MowerPosition(1, 2, MowerCardinality.N);

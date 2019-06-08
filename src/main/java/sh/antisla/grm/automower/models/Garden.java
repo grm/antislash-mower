@@ -77,11 +77,18 @@ public class Garden {
 
     /**
      * Adds a mower to the garden.
+     * If the space is out of grid, or the location is already occupied by a mower, the mower cannot be added.
      * @param mower The mower to be added.
      */
     public void addMower(Mower mower) {
-        logger.info("Adding a mower to the garden : " + mower.toString());
-        this.mowers.add(mower);
+        if (isPositionAvailable(mower.getPosition().getPositionX(), mower.getPosition().getPositionY())) {
+            logger.info("Adding a mower to the garden : ({}, {}) ",
+                    mower.getPosition().getPositionX(), mower.getPosition().getPositionY());
+            this.mowers.add(mower);
+        } else {
+            logger.info("Mower cannot be added to the garden - location not valid : ({}, {}) ",
+                    mower.getPosition().getPositionX(), mower.getPosition().getPositionY());
+        }
     }
 
     /**
