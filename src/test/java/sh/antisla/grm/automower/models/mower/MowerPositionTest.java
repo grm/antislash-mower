@@ -53,6 +53,7 @@ public class MowerPositionTest {
         assertEquals(position1, position1);
         assertEquals(position1, position2);
         assertNotEquals(position1, null);
+        assertNotEquals(position1, new Object());
         assertNotEquals(position1, positionDifferentX);
         assertNotEquals(position1, positionDifferentY);
         assertNotEquals(position1, positionDifferentOrientation);

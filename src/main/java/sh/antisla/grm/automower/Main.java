@@ -9,8 +9,8 @@ import sh.antisla.grm.automower.models.Garden;
 import java.io.File;
 import java.io.IOException;
 
-public class Main {
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+public interface Main {
+    public static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) throws IOException, ParseException{
         try {
@@ -29,10 +29,9 @@ public class Main {
 
             String file = cmd.getOptionValue("file");
 
-            if (file != null) {
-                Garden garden = GardenFactory.loadFromFile(new File(file));
-                garden.mowItNow();
-            }
+            Garden garden = GardenFactory.loadFromFile(new File(file));
+            garden.mowItNow();
+
         } catch (ParseException ex) {
             logger.error("Could not parse cmd line", ex);
             throw ex;

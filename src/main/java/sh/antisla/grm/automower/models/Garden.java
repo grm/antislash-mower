@@ -29,7 +29,7 @@ public class Garden {
     /**
      * Available mowers in the garden.
      */
-    private List<Mower> mowers = new ArrayList<Mower>();
+    private final List<Mower> mowers = new ArrayList<Mower>();
 
     /**
      * Basic contructor for the garden.
@@ -37,7 +37,7 @@ public class Garden {
      * @param xAxisLength The X-axis length of the garden's grid.
      * @param yAxisLength The Y-axis length of the garden's grid.
      */
-    public Garden(int xAxisLength, int yAxisLength) {
+    public Garden(final int xAxisLength, final int yAxisLength) {
         this.xAxisLength = xAxisLength;
         this.yAxisLength = yAxisLength;
         logger.info("Adding a garden : " + this.toString());
@@ -55,7 +55,7 @@ public class Garden {
      * Set the X-axis length of the garden.
      * @param xAxisLength The X-axis length
      */
-    public void setxAxisLength(int xAxisLength) {
+    public void setxAxisLength(final int xAxisLength) {
         this.xAxisLength = xAxisLength;
     }
 
@@ -71,7 +71,7 @@ public class Garden {
      * Set the Y-axis length of the garden.
      * @param yAxisLength The Y-axis length
      */
-    public void setyAxisLength(int yAxisLength) {
+    public void setyAxisLength(final int yAxisLength) {
         this.yAxisLength = yAxisLength;
     }
 
@@ -80,7 +80,7 @@ public class Garden {
      * If the space is out of grid, or the location is already occupied by a mower, the mower cannot be added.
      * @param mower The mower to be added.
      */
-    public void addMower(Mower mower) {
+    public void addMower(final Mower mower) {
         if (isPositionAvailable(mower.getPosition().getPositionX(), mower.getPosition().getPositionY())) {
             logger.info("Adding a mower to the garden : ({}, {}) ",
                     mower.getPosition().getPositionX(), mower.getPosition().getPositionY());
@@ -116,7 +116,7 @@ public class Garden {
      * @param yPosition the y-axis position to test
      * @return true if the case is available, false otherwise
      */
-    public boolean isPositionAvailable(int xPosition, int yPosition) {
+    public boolean isPositionAvailable(final int xPosition, final int yPosition) {
         return this.checkXAxis(xPosition, yPosition)
                 && this.checkYAxis(xPosition, yPosition)
                 && this.checkMowerLocations(xPosition, yPosition);
@@ -128,7 +128,7 @@ public class Garden {
      * @param yPosition the yPosition to test
      * @return true if the location is valid, false otherwise
      */
-    private boolean checkYAxis(int xPosition, int yPosition) {
+    private boolean checkYAxis(final int xPosition, final int yPosition) {
         if (yPosition > yAxisLength || yPosition < 0) {
             logger.debug("Movement out of grid detected ({}, {}) ! (yAxis)", xPosition, yPosition);
             return false;
@@ -142,7 +142,7 @@ public class Garden {
      * @param yPosition the yPosition to test
      * @return true if the location is valid, false otherwise
      */
-    private boolean checkXAxis(int xPosition, int yPosition) {
+    private boolean checkXAxis(final int xPosition, final int yPosition) {
         if (xPosition > xAxisLength || xPosition < 0) {
             logger.debug("Movement out of grid detected ({}, {}) ! (xAxis)", xPosition, yPosition);
             return false;
@@ -156,7 +156,7 @@ public class Garden {
      * @param yPosition the yPosition to test
      * @return true if the location is valid, false otherwise
      */
-    private boolean checkMowerLocations(int xPosition, int yPosition) {
+    private boolean checkMowerLocations(final int xPosition, final int yPosition) {
         for (Mower mower : mowers) {
             if (mower.getPosition().getPositionX() == xPosition
                     && mower.getPosition().getPositionY() == yPosition) {

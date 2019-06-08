@@ -17,7 +17,7 @@ public class MowerPosition {
      * @param positionY The Y-axis starting position of the mower
      * @param orientation The starting cardinality of the mower orientation
      */
-    public MowerPosition(int positionX, int positionY, MowerCardinality orientation) {
+    public MowerPosition(final int positionX, final int positionY, final MowerCardinality orientation) {
         this.positionX = positionX;
         this.positionY = positionY;
         this.orientation = orientation;
@@ -37,7 +37,7 @@ public class MowerPosition {
      *
      * @param positionX the new X-axis position
      */
-    public void setPositionX(int positionX) {
+    public void setPositionX(final int positionX) {
         this.positionX = positionX;
     }
 
@@ -54,7 +54,7 @@ public class MowerPosition {
      * Define the Y-axis position of the mower.
      * @param positionY the new Y-axis position
      */
-    public void setPositionY(int positionY) {
+    public void setPositionY(final int positionY) {
         this.positionY = positionY;
     }
 
@@ -72,7 +72,7 @@ public class MowerPosition {
      *
      * @param orientation the new orientation
      */
-    public void setOrientation(MowerCardinality orientation) {
+    public void setOrientation(final MowerCardinality orientation) {
         this.orientation = orientation;
     }
 

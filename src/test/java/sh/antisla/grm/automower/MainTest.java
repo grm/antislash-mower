@@ -30,8 +30,10 @@ public class MainTest {
             assertTrue(true);
         } catch (IOException ex) {
             ex.printStackTrace();
+            fail("Should not be here");
         } catch (ParseException ex2) {
             ex2.printStackTrace();
+            fail("Should not be here");
         } finally {
             try {
                 if (file != null) {

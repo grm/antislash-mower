@@ -12,12 +12,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class GardenFactory {
+public interface GardenFactory {
 
-    private static final Logger logger = LoggerFactory.getLogger(GardenFactory.class);
+    public static final Logger logger = LoggerFactory.getLogger(GardenFactory.class);
 
 
-    public static Garden loadFromFile(File file) throws IOException {
+    public static Garden loadFromFile(final File file) throws IOException {
         logger.debug("Reading from file {}", file.getAbsolutePath());
         List<String> lines = FileUtils.readLines(file, "UTF-8");
 

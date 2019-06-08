@@ -35,7 +35,7 @@ public class Mower {
      * @param mowingPlanning The mowing planning of the mower.
      * @param garden The garden where the mower is located.
      */
-    public Mower(MowerPosition position, String mowingPlanning, Garden garden) {
+    public Mower(final MowerPosition position, final String mowingPlanning, final Garden garden) {
         this.position = position;
         this.mowingPlanning = mowingPlanning.toCharArray();
         this.garden = garden;
@@ -53,7 +53,7 @@ public class Mower {
      * Defines the position of the mower in the garden.
      * @param position The position of the mower in the garden grid.
      */
-    public void setPosition(MowerPosition position) {
+    public void setPosition(final MowerPosition position) {
         this.position = position;
     }
 
@@ -81,7 +81,7 @@ public class Mower {
      * @param movement the instruction to be applied to the mower
      * @throws UnknownInstructionException if the instruction is unknown. It can be 'G', 'D' or 'A'.
      */
-    public void moveToNextPosition(char movement) throws UnknownInstructionException {
+    public void moveToNextPosition(final char movement) throws UnknownInstructionException {
         switch(movement) {
             case 'G':
             case 'D':
@@ -99,9 +99,9 @@ public class Mower {
 
     /**
      * Function called when the mover need to advance.
-     * @param movement
+     * @param movement the movement that need to be done
      */
-    private void moveMower(char movement) {
+    private void moveMower(final char movement) {
         int nextYPosition = this.getPosition().getPositionY();
         int nextXPosition = this.getPosition().getPositionX();
         switch (this.getPosition().getOrientation()) {
@@ -115,6 +115,7 @@ public class Mower {
                 nextXPosition--;
                 break;
             case E:
+            default:
                 nextXPosition++;
                 break;
         }

@@ -32,7 +32,7 @@ public enum MowerCardinality {
      * @return the new cardinality of the mower
      * @throws UnknownInstructionException If the instruction is not 'D' or 'G'
      */
-    public static MowerCardinality rotate(MowerCardinality current, char rotation) throws UnknownInstructionException {
+    public static MowerCardinality rotate(final MowerCardinality current, final char rotation) throws UnknownInstructionException {
         switch(rotation) {
             case 'G':
                 return MowerCardinality.rotateLeft(current);
@@ -48,7 +48,7 @@ public enum MowerCardinality {
      * @param current The current orientation of the mower
      * @return The new Orientation
      */
-    private static MowerCardinality rotateRight(MowerCardinality current) throws UnknownInstructionException{
+    private static MowerCardinality rotateRight(final MowerCardinality current) throws UnknownInstructionException{
         switch (current) {
             case N:
                 return MowerCardinality.E;
@@ -67,7 +67,7 @@ public enum MowerCardinality {
      * @param current The current orientation of the mower
      * @return The new Orientation
      */
-    private static MowerCardinality rotateLeft(MowerCardinality current) throws UnknownInstructionException{
+    private static MowerCardinality rotateLeft(final MowerCardinality current) throws UnknownInstructionException{
         switch (current) {
             case N:
                 return MowerCardinality.W;

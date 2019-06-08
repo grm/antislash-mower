@@ -93,4 +93,11 @@ public class MowerTest {
             assertTrue(true);
         }
     }
+
+    @Test
+    public void testToString(){
+        assertTrue(
+                mower1.toString().matches("Mower\\{position=sh.antisla.grm.automower.models.mower.MowerPosition@.*, mowingPlanning=\\[G, A, G, A, G, A, G, A, A\\], garden=Garden\\{xAxisLength=5, yAxisLength=5\\}\\}")
+        );
+    }
 }
