@@ -21,24 +21,85 @@ public class GardenTest {
 
     @Test
     public void testDefaultConstructor() {
-        assertEquals(garden1.getxAxisLength(), 5);
-        assertEquals(garden1.getyAxisLength(), 5);
+        assertEquals(5, garden1.getxAxisLength());
+        assertEquals(5, garden1.getyAxisLength());
     }
 
     @Test
     public void testSetters() {
-        assertNotEquals(garden1.getxAxisLength(), 6);
-        assertNotEquals(garden1.getyAxisLength(), 6);
+        assertNotEquals(6, garden1.getxAxisLength());
+        assertNotEquals(6, garden1.getyAxisLength());
         garden1.setxAxisLength(6);
         garden1.setyAxisLength(6);
-        assertEquals(garden1.getxAxisLength(), 6);
-        assertEquals(garden1.getyAxisLength(), 6);
+        assertEquals(6, garden1.getxAxisLength());
+        assertEquals(6, garden1.getyAxisLength());
     }
 
     @Test
     public void testAddMower() {
-        assertEquals(garden1.getMowers().size(), 0);
+        assertEquals(0, garden1.getMowers().size());
         garden1.addMower(this.mower1);
-        assertEquals(garden1.getMowers().size(), 1);
+        assertEquals(1, garden1.getMowers().size());
+    }
+
+    @Test
+    public void mowItNow(){
+        Garden garden = new Garden(5, 5);
+        MowerPosition position1 = new MowerPosition(1, 2, MowerCardinality.N);
+        Mower mower1 = new Mower(position1, "GAGAGAGAA", garden);
+        MowerPosition position2 = new MowerPosition(3, 3, MowerCardinality.E);
+        Mower mower2 = new Mower(position2, "AADAADADDA", garden);
+        garden.addMower(mower1);
+        garden.addMower(mower2);
+        garden.mowItNow();
+
+        assertEquals(1, mower1.getPosition().getPositionX());
+        assertEquals(3, mower1.getPosition().getPositionY());
+        assertEquals(MowerCardinality.N, mower1.getPosition().getOrientation());
+
+        assertEquals(5, mower2.getPosition().getPositionX(), 5);
+        assertEquals(1, mower2.getPosition().getPositionY(),  1);
+        assertEquals(MowerCardinality.E, mower2.getPosition().getOrientation());
+
+    }
+
+    @Test
+    public void mowItNowToLimit(){
+        Garden garden = new Garden(1, 1);
+        MowerPosition position1 = new MowerPosition(1, 1, MowerCardinality.N);
+        MowerPosition position2 = new MowerPosition(0, 0, MowerCardinality.S);
+        Mower mower1 = new Mower(position1, "AADAA", garden);
+        Mower mower2 = new Mower(position2, "AADAA", garden);
+        garden.addMower(mower1);
+        garden.addMower(mower2);
+        garden.mowItNow();
+
+        assertEquals(1, mower1.getPosition().getPositionX());
+        assertEquals(1, mower1.getPosition().getPositionY());
+        assertEquals(MowerCardinality.E, mower1.getPosition().getOrientation());
+
+        assertEquals(0, mower2.getPosition().getPositionX());
+        assertEquals(0, mower2.getPosition().getPositionY());
+        assertEquals(MowerCardinality.W, mower2.getPosition().getOrientation());
+    }
+
+    @Test
+    public void mowItNowWithCollision() {
+        Garden garden = new Garden(1, 1);
+        MowerPosition position1 = new MowerPosition(1, 1, MowerCardinality.S);
+        MowerPosition position2 = new MowerPosition(0, 0, MowerCardinality.E);
+        Mower mower1 = new Mower(position1, "ADA", garden);
+        Mower mower2 = new Mower(position2, "AGA", garden);
+        garden.addMower(mower1);
+        garden.addMower(mower2);
+        garden.mowItNow();
+
+        assertEquals(1, mower1.getPosition().getPositionX());
+        assertEquals(0, mower1.getPosition().getPositionY());
+        assertEquals(MowerCardinality.W, mower1.getPosition().getOrientation());
+
+        assertEquals(0, mower2.getPosition().getPositionX());
+        assertEquals(1, mower2.getPosition().getPositionY());
+        assertEquals(MowerCardinality.N, mower2.getPosition().getOrientation());
     }
 }

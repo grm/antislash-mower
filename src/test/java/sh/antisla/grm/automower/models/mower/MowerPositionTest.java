@@ -24,36 +24,28 @@ public class MowerPositionTest {
 
     @Test
     public void testGettersFromConstructor() {
-        assertNotEquals(position1.getPositionX(), 1);
-        assertNotEquals(position1.getPositionY(), 1);
-        assertNotEquals(position1.getOrientation(), MowerCardinality.S);
+        assertNotEquals(1, position1.getPositionX());
+        assertNotEquals(1, position1.getPositionY());
+        assertNotEquals(MowerCardinality.S, position1.getOrientation());
 
-        assertEquals(position1.getPositionX(), 0);
-        assertEquals(position1.getPositionY(), 0);
-        assertEquals(position1.getOrientation(), MowerCardinality.N);
+        assertEquals(0, position1.getPositionX());
+        assertEquals(0, position1.getPositionY());
+        assertEquals(MowerCardinality.N, position1.getOrientation());
     }
 
     @Test
     public void testSetters() {
-        assertNotEquals(position1.getPositionX(), 1);
-        assertNotEquals(position1.getPositionY(), 1);
-        assertNotEquals(position1.getOrientation(), MowerCardinality.S);
-
-        assertEquals(position1.getPositionX(), 0);
-        assertEquals(position1.getPositionY(), 0);
-        assertEquals(position1.getOrientation(), MowerCardinality.N);
+        assertEquals(0, position1.getPositionX(), 0);
+        assertEquals(0, position1.getPositionY(), 0);
+        assertEquals(MowerCardinality.N, position1.getOrientation());
 
         position1.setPositionX(1);
         position1.setPositionY(1);
         position1.setOrientation(MowerCardinality.S);
 
-        assertEquals(position1.getPositionX(), 1);
-        assertEquals(position1.getPositionY(), 1);
-        assertEquals(position1.getOrientation(), MowerCardinality.S);
-
-        assertNotEquals(position1.getPositionX(), 0);
-        assertNotEquals(position1.getPositionY(), 0);
-        assertNotEquals(position1.getOrientation(), MowerCardinality.N);
+        assertEquals(1, position1.getPositionX());
+        assertEquals(1, position1.getPositionY());
+        assertEquals(MowerCardinality.S, position1.getOrientation());
     }
 
     @Test

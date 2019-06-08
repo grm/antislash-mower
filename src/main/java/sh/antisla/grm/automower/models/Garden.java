@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sh.antisla.grm.automower.models.exceptions.NoMoreInstructionsException;
-import sh.antisla.grm.automower.models.mower.MowerPosition;
 
 
 /**
@@ -92,6 +90,42 @@ public class Garden {
      */
     public List<Mower> getMowers() {
         return mowers;
+    }
+
+    /**
+     * Launches all the mowers of the garden.
+     */
+    public void mowItNow(){
+        for (Mower mower: mowers) {
+            mower.mow();
+        }
+    }
+
+    /**
+     * Checks if the position is available. Currently, this function tests :
+     *  - if the mower is not out of the grid
+     *  - if the grid location is not used by another mower
+     * @param xPosition the x-axis position to test
+     * @param yPosition the y-axis position to test
+     * @return true if the case is available, false otherwise
+     */
+    public boolean isPositionAvailable(int xPosition, int yPosition) {
+        if (yPosition > yAxisLength || yPosition < 0) {
+            logger.debug("Movement out of grid detected ({}, {}) ! (yAxis)", xPosition, yPosition);
+            return false;
+        }
+        if (xPosition > xAxisLength || xPosition < 0) {
+            logger.debug("Movement out of grid detected ({}, {}) ! (xAxis)", xPosition, yPosition);
+            return false;
+        }
+        for (Mower mower : mowers) {
+            if (mower.getPosition().getPositionX() == xPosition
+                    && mower.getPosition().getPositionY() == yPosition) {
+                logger.debug("Collision detected ({}, {}) !", xPosition, yPosition);
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

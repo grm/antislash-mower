@@ -2,7 +2,7 @@ package sh.antisla.grm.automower.models;
 
 import org.junit.Before;
 import org.junit.Test;
-import sh.antisla.grm.automower.models.exceptions.NoMoreInstructionsException;
+import sh.antisla.grm.automower.models.exceptions.UnknownInstructionException;
 import sh.antisla.grm.automower.models.mower.MowerCardinality;
 import sh.antisla.grm.automower.models.mower.MowerPosition;
 
@@ -22,42 +22,75 @@ public class MowerTest {
 
     @Test
     public void testGettersFromConstructor() {
-        assertEquals(mower1.getPosition(), position);
+        assertEquals(position, mower1.getPosition());
     }
 
     @Test
     public void testSetters() {
         final MowerPosition position2 = new MowerPosition(1, 1, MowerCardinality.S);
-        assertEquals(mower1.getPosition(), position);
-        assertNotEquals(mower1.getPosition(), position2);
+        assertEquals(position, mower1.getPosition());
+        assertNotEquals(position2, mower1.getPosition());
         mower1.setPosition(position2);
-        assertNotEquals(mower1.getPosition(), position);
-        assertEquals(mower1.getPosition(), position2);
+        assertNotEquals(position, mower1.getPosition());
+        assertEquals(position2, mower1.getPosition());
     }
 
     @Test
-    public void testgetNextMove() throws NoMoreInstructionsException{
-        assertEquals(mower1.getNextInstruction(), 'G');
-        assertEquals(mower1.getNextInstruction(), 'A');
-        assertEquals(mower1.getNextInstruction(), 'G');
-        assertEquals(mower1.getNextInstruction(), 'A');
-        assertEquals(mower1.getNextInstruction(), 'G');
-        assertEquals(mower1.getNextInstruction(), 'A');
-        assertEquals(mower1.getNextInstruction(), 'G');
-        assertEquals(mower1.getNextInstruction(), 'A');
-        assertEquals(mower1.getNextInstruction(), 'A');
+    public void testMow() {
+        Garden garden = new Garden(5, 5);
+        MowerPosition position1 = new MowerPosition(1, 2, MowerCardinality.N);
+        Mower mower1 = new Mower(position1, "GAGAGAGAA", garden);
+        mower1.mow();
+
+        assertEquals(1, mower1.getPosition().getPositionX());
+        assertEquals(3, mower1.getPosition().getPositionY());
+        assertEquals(MowerCardinality.N, mower1.getPosition().getOrientation());
     }
 
     @Test
-    public void testgetNextMoveNoMoreInstructions() throws NoMoreInstructionsException{
-        Mower mower = new Mower(new MowerPosition(0,0,MowerCardinality.N), "G", new Garden(5, 5));
-        mower.getNextInstruction();
+    public void testMowWithUnkownInstructions() {
+        Garden garden = new Garden(5, 5);
+        MowerPosition position1 = new MowerPosition(1, 2, MowerCardinality.N);
+        Mower mower1 = new Mower(position1, "GAGCAGFAGEAA", garden);
+        mower1.mow();
+
+        assertEquals(1, mower1.getPosition().getPositionX());
+        assertEquals(3, mower1.getPosition().getPositionY());
+        assertEquals(MowerCardinality.N, mower1.getPosition().getOrientation());
+    }
+
+
+    @Test
+    public void testmoveToNextPosition() throws UnknownInstructionException {
+        mower1.moveToNextPosition('A');
+        assertEquals(0, mower1.getPosition().getPositionX());
+        assertEquals(1, mower1.getPosition().getPositionY());
+        assertEquals(MowerCardinality.N, mower1.getPosition().getOrientation());
+        mower1.moveToNextPosition('D');
+        assertEquals(0, mower1.getPosition().getPositionX());
+        assertEquals(1, mower1.getPosition().getPositionY());
+        assertEquals(MowerCardinality.E, mower1.getPosition().getOrientation());
+        mower1.moveToNextPosition('A');
+        assertEquals(1, mower1.getPosition().getPositionX());
+        assertEquals(1, mower1.getPosition().getPositionY());
+        assertEquals(MowerCardinality.E, mower1.getPosition().getOrientation());
+        mower1.moveToNextPosition('G');
+        assertEquals(1, mower1.getPosition().getPositionX());
+        assertEquals(1, mower1.getPosition().getPositionY());
+        assertEquals(MowerCardinality.N, mower1.getPosition().getOrientation());
+        mower1.moveToNextPosition('A');
+        assertEquals(1, mower1.getPosition().getPositionX());
+        assertEquals(2, mower1.getPosition().getPositionY());
+        assertEquals(MowerCardinality.N, mower1.getPosition().getOrientation());
+    }
+
+    @Test
+    public void testmoveToNextPositioWithUnkonwnInstruction() throws UnknownInstructionException {
         try {
-            mower.getNextInstruction();
-            fail("NoMoreInstructionsException should have been thrown");
-        } catch (NoMoreInstructionsException ex) {
-            assert(true);
+            mower1.moveToNextPosition('F');
+            fail("Should not be here");
+        } catch (UnknownInstructionException ex) {
+            assertTrue(true);
         }
     }
-
 }

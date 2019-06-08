@@ -1,15 +1,20 @@
 package sh.antisla.grm.automower.models;
 
 import java.util.Arrays;
-import java.util.Objects;
 
-import sh.antisla.grm.automower.models.exceptions.NoMoreInstructionsException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import sh.antisla.grm.automower.models.exceptions.UnknownInstructionException;
+import sh.antisla.grm.automower.models.mower.MowerCardinality;
 import sh.antisla.grm.automower.models.mower.MowerPosition;
 
 /**
  * Class to represent of mower in the garden.
  */
 public class Mower {
+
+    private static final Logger logger = LoggerFactory.getLogger(Mower.class);
+
     /**
      * The current position of the mower in the garden.
      */
@@ -57,17 +62,63 @@ public class Mower {
     }
 
     /**
-     * Returns the next instruction for the mower as a character.
-     *
-     * @return the character representing the next instuction for the mower.
-     * @throws NoMoreInstructionsException when there are no instrucitons
-     *  left to execute for the mower.
+     * Launches the mower.
      */
-    public char getNextInstruction() throws NoMoreInstructionsException{
-        if (nextInstruction == mowingPlanning.length) {
-            throw new NoMoreInstructionsException();
+    public void mow() {
+        while (nextInstruction < mowingPlanning.length){
+            try {
+                this.moveToNextPosition(mowingPlanning[nextInstruction++]);
+            } catch (UnknownInstructionException ex) {
+                logger.info("Unknown instruction : " + mowingPlanning[nextInstruction]);
+            }
         }
-        return mowingPlanning[nextInstruction++];
+        logger.info("Mower has finished : "
+                + position.getPositionX() + " "
+                + position.getPositionY() + " "
+                + position.getOrientation());
+    }
+
+    /**
+     * Move the mower to the next position.
+     *
+     * @param movement the instruction to be applied to the mower
+     * @throws UnknownInstructionException if the instruction is unknown. It can be 'G', 'D' or 'A'.
+     */
+    public void moveToNextPosition(char movement) throws UnknownInstructionException {
+        switch(movement) {
+            case 'G':
+            case 'D':
+                MowerCardinality newOrientation = MowerCardinality.rotate(this.getPosition().getOrientation(), movement);
+                logger.debug("Rotating mower : {} -> {}", this.position.getOrientation(), newOrientation);
+                this.position.setOrientation(newOrientation);
+                break;
+            case 'A':
+                int nextYPosition = this.getPosition().getPositionY();
+                int nextXPosition = this.getPosition().getPositionX();
+                if (this.getPosition().getOrientation().equals(MowerCardinality.N)) {
+                    nextYPosition++;
+                } else if (this.getPosition().getOrientation().equals(MowerCardinality.S)) {
+                    nextYPosition--;
+                } else if (this.getPosition().getOrientation().equals(MowerCardinality.W)) {
+                    nextXPosition--;
+                } else if (this.getPosition().getOrientation().equals(MowerCardinality.E)) {
+                    nextXPosition++;
+                }
+                if (garden.isPositionAvailable(nextXPosition, nextYPosition)) {
+                    logger.debug("Moving mower : ({}, {}) -> ({}, {})",
+                            this.position.getPositionX(), this.position.getPositionY(),
+                            nextXPosition, nextYPosition);
+                    this.getPosition().setPositionX(nextXPosition);
+                    this.getPosition().setPositionY(nextYPosition);
+                } else {
+                    logger.debug("Cannot move mower : ({}, {}) -> ({}, {})",
+                            this.position.getPositionX(), this.position.getPositionY(),
+                            this.position.getPositionX(), this.position.getPositionY());
+                }
+                break;
+            default:
+                throw new UnknownInstructionException();
+        }
     }
 
     @Override
