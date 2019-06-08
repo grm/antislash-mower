@@ -93,31 +93,44 @@ public class Mower {
                 this.position.setOrientation(newOrientation);
                 break;
             case 'A':
-                int nextYPosition = this.getPosition().getPositionY();
-                int nextXPosition = this.getPosition().getPositionX();
-                if (this.getPosition().getOrientation().equals(MowerCardinality.N)) {
-                    nextYPosition++;
-                } else if (this.getPosition().getOrientation().equals(MowerCardinality.S)) {
-                    nextYPosition--;
-                } else if (this.getPosition().getOrientation().equals(MowerCardinality.W)) {
-                    nextXPosition--;
-                } else if (this.getPosition().getOrientation().equals(MowerCardinality.E)) {
-                    nextXPosition++;
-                }
-                if (garden.isPositionAvailable(nextXPosition, nextYPosition)) {
-                    logger.debug("Moving mower : ({}, {}) -> ({}, {})",
-                            this.position.getPositionX(), this.position.getPositionY(),
-                            nextXPosition, nextYPosition);
-                    this.getPosition().setPositionX(nextXPosition);
-                    this.getPosition().setPositionY(nextYPosition);
-                } else {
-                    logger.debug("Cannot move mower : ({}, {}) -> ({}, {})",
-                            this.position.getPositionX(), this.position.getPositionY(),
-                            this.position.getPositionX(), this.position.getPositionY());
-                }
+                this.moveMower(movement);
                 break;
             default:
                 throw new UnknownInstructionException();
+        }
+    }
+
+    /**
+     * Function called when the mover need to advance.
+     * @param movement
+     */
+    private void moveMower(char movement) {
+        int nextYPosition = this.getPosition().getPositionY();
+        int nextXPosition = this.getPosition().getPositionX();
+        switch (this.getPosition().getOrientation()) {
+            case N:
+                nextYPosition++;
+                break;
+            case S:
+                nextYPosition--;
+                break;
+            case W:
+                nextXPosition--;
+                break;
+            case E:
+                nextXPosition++;
+                break;
+        }
+        if (garden.isPositionAvailable(nextXPosition, nextYPosition)) {
+            logger.debug("Moving mower : ({}, {}) -> ({}, {})",
+                    this.position.getPositionX(), this.position.getPositionY(),
+                    nextXPosition, nextYPosition);
+            this.getPosition().setPositionX(nextXPosition);
+            this.getPosition().setPositionY(nextYPosition);
+        } else {
+            logger.debug("Cannot move mower : ({}, {}) -> ({}, {})",
+                    this.position.getPositionX(), this.position.getPositionY(),
+                    this.position.getPositionX(), this.position.getPositionY());
         }
     }
 

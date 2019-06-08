@@ -1,5 +1,6 @@
 package sh.antisla.grm.automower.models.mower;
 
+import sh.antisla.grm.automower.models.Mower;
 import sh.antisla.grm.automower.models.exceptions.UnknownInstructionException;
 
 /**
@@ -34,25 +35,49 @@ public enum MowerCardinality {
     public static MowerCardinality rotate(MowerCardinality current, char rotation) throws UnknownInstructionException {
         switch(rotation) {
             case 'G':
-                if (current.equals(MowerCardinality.N)) {
-                    return MowerCardinality.W;
-                } else if (current.equals(MowerCardinality.W)) {
-                    return MowerCardinality.S;
-                } else if (current.equals(MowerCardinality.S)) {
-                    return MowerCardinality.E;
-                } else {
-                    return MowerCardinality.N;
-                }
+                return MowerCardinality.rotateLeft(current);
             case 'D':
-                if (current.equals(MowerCardinality.N)) {
-                    return MowerCardinality.E;
-                } else if (current.equals(MowerCardinality.E)) {
-                    return MowerCardinality.S;
-                } else if (current.equals(MowerCardinality.S)) {
-                    return MowerCardinality.W;
-                } else {
-                    return MowerCardinality.N;
-                }
+                return MowerCardinality.rotateRight(current);
+            default:
+                throw new UnknownInstructionException();
+        }
+    }
+
+    /**
+     * Rotate the mower to the right.
+     * @param current The current orientation of the mower
+     * @return The new Orientation
+     */
+    private static MowerCardinality rotateRight(MowerCardinality current) throws UnknownInstructionException{
+        switch (current) {
+            case N:
+                return MowerCardinality.E;
+            case E:
+                return MowerCardinality.S;
+            case S:
+                return MowerCardinality.W;
+            case W:
+                return MowerCardinality.N;
+            default :
+                throw new UnknownInstructionException();
+        }
+    }
+
+    /**
+     * Rotate the mower to the left.
+     * @param current The current orientation of the mower
+     * @return The new Orientation
+     */
+    private static MowerCardinality rotateLeft(MowerCardinality current) throws UnknownInstructionException{
+        switch (current) {
+            case N:
+                return MowerCardinality.W;
+            case W:
+                return MowerCardinality.S;
+            case S:
+                return MowerCardinality.E;
+            case E:
+                return MowerCardinality.N;
             default:
                 throw new UnknownInstructionException();
         }

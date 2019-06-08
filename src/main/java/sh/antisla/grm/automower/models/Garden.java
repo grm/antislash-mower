@@ -117,14 +117,46 @@ public class Garden {
      * @return true if the case is available, false otherwise
      */
     public boolean isPositionAvailable(int xPosition, int yPosition) {
+        return this.checkXAxis(xPosition, yPosition)
+                && this.checkYAxis(xPosition, yPosition)
+                && this.checkMowerLocations(xPosition, yPosition);
+    }
+
+    /**
+     * Function used to check a location validity on the Y axis
+     * @param xPosition the xPosition to test
+     * @param yPosition the yPosition to test
+     * @return true if the location is valid, false otherwise
+     */
+    private boolean checkYAxis(int xPosition, int yPosition) {
         if (yPosition > yAxisLength || yPosition < 0) {
             logger.debug("Movement out of grid detected ({}, {}) ! (yAxis)", xPosition, yPosition);
             return false;
         }
+        return true;
+    }
+
+    /**
+     * Function used to check a location validity on the X axis
+     * @param xPosition the xPosition to test
+     * @param yPosition the yPosition to test
+     * @return true if the location is valid, false otherwise
+     */
+    private boolean checkXAxis(int xPosition, int yPosition) {
         if (xPosition > xAxisLength || xPosition < 0) {
             logger.debug("Movement out of grid detected ({}, {}) ! (xAxis)", xPosition, yPosition);
             return false;
         }
+        return true;
+    }
+
+    /**
+     * Function used to check if a location is not already used by another mower
+     * @param xPosition the xPosition to test
+     * @param yPosition the yPosition to test
+     * @return true if the location is valid, false otherwise
+     */
+    private boolean checkMowerLocations(int xPosition, int yPosition) {
         for (Mower mower : mowers) {
             if (mower.getPosition().getPositionX() == xPosition
                     && mower.getPosition().getPositionY() == yPosition) {
