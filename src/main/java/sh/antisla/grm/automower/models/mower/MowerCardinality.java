@@ -57,9 +57,8 @@ public enum MowerCardinality {
             case S:
                 return MowerCardinality.W;
             case W:
+            default:
                 return MowerCardinality.N;
-            default :
-                throw new UnknownInstructionException();
         }
     }
 
@@ -77,9 +76,8 @@ public enum MowerCardinality {
             case S:
                 return MowerCardinality.E;
             case E:
-                return MowerCardinality.N;
             default:
-                throw new UnknownInstructionException();
+                return MowerCardinality.N;
         }
     }
 }
