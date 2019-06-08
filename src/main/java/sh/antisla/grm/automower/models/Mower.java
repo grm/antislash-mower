@@ -23,10 +23,6 @@ public class Mower {
      * The mowing planning.
      */
     private char[] mowingPlanning;
-    /**
-     * The next mower instruction to execute.
-     */
-    private int nextInstruction = 0;
 
     /**
      * The garden where the mower is located.
@@ -65,11 +61,12 @@ public class Mower {
      * Launches the mower.
      */
     public void mow() {
-        while (nextInstruction < mowingPlanning.length){
+        int instructionIndex = 0;
+        while (instructionIndex < mowingPlanning.length){
             try {
-                this.moveToNextPosition(mowingPlanning[nextInstruction++]);
+                this.moveToNextPosition(mowingPlanning[instructionIndex++]);
             } catch (UnknownInstructionException ex) {
-                logger.info("Unknown instruction : " + mowingPlanning[nextInstruction]);
+                logger.info("Unknown instruction : " + mowingPlanning[instructionIndex]);
             }
         }
         logger.info("Mower has finished : "
@@ -139,7 +136,6 @@ public class Mower {
         return "Mower{"
                 + "position=" + position
                 + ", mowingPlanning=" + Arrays.toString(mowingPlanning)
-                + ", nextInstruction=" + nextInstruction
                 + ", garden=" + garden
                 + '}';
     }
